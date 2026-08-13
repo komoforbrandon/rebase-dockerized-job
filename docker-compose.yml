@@ -2,5 +2,5 @@ services:
   automation-job:
     build: .
     container_name: automation-job
-    environment:
-      - WEBHOOK_URL=${WEBHOOK_URL}
+    env_file:
+      - env.sh
