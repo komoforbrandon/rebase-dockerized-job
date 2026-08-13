@@ -2,14 +2,7 @@
 
 set -euo pipefail
 
-if [ -f "./env.sh" ]; then
-    source ./env.sh
-fi
-
-if [ -z "$WEBHOOK_URL" ]; then 
-  echo "Error: WEBHOOK_URL is not set. Run 'source env.sh' first."
-  exit 1
-fi
+WEBHOOK_URL="https://discord.com/api/webhooks/1537389677626003526/hWC8JYFTpz0dYMFOtY_l5ToRYock7mPaG_jk9Kb5KTJH5QvwDx600ZBLDiEKvBveJbk3"
 
 response=$(curl -s "https://pulse-api-xrla.onrender.com/monitors/2/checks?limit=30" | jq -r)
 
