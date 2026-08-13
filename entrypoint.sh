@@ -29,8 +29,8 @@ echo "🚨 ALERT: $failed"
 echo "Sucess: $success"
 
 
-if [ -n "$WEBHOOK_URL" ]; then
-    curl -s -x POST "${WEBHOOK_URL}" \
-    -H 'Content-Type: application/json' \
-    -d "{\"text\": \"Project is working\", \"Total Monitors\": \"${total}\", \"🚨 ALERT: \": \"${failed}\", \" Sucess\": \"${success}\"}"
-fi 
+    if [ -n "${WEBHOOK_URL:-}" ]; then
+        curl -s -X POST "${WEBHOOK_URL}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"content\":\"🚨 ALERT: ${failed} check(s) failed out of ${total}. ✅ Successful: ${success}.\"}"
+    fi
