@@ -69,7 +69,6 @@ docker run --rm -v "$PWD":/work -w /work automation-job:latest
 ## Screenshots
 ### Terminal Output
 ![Screenshot 1](assets/terminaloutput.png)
----
 #### Discord Alert
 ![Screenshot 2](assets/discord%20alert.png)
 
