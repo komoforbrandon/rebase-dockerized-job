@@ -28,9 +28,8 @@ echo "Total Monitors: $total"
 echo "🚨 ALERT: $failed"
 echo "Sucess: $success"
 
-
-    if [ -n "${WEBHOOK_URL:-}" ]; then
-        curl -s -X POST "${WEBHOOK_URL}" \
-            -H 'Content-Type: application/json' \
-            -d "{\"content\":\"🚨 ALERT: ${failed} check(s) failed out of ${total}. ✅ Successful: ${success}.\"}"
-    fi
+if [ -n "${WEBHOOK_URL:-}" ]; then
+    curl -s -X POST "${WEBHOOK_URL}" \
+        -H 'Content-Type: application/json' \
+        -d "{\"content\":\"🚨 ALERT: ${failed} check(s) failed out of ${total}.\\n✅ Successful: ${success}.\"}"
+fi
