@@ -2,6 +2,16 @@
 
 set -euo pipefail
 
+if [ -z "${API_URL:-}" ]; then
+    echo "❌ Error: API_URL environment variable is not set." >&2
+    exit 1
+fi
+
+if [ -z "${WEBHOOK_URL:-}" ]; then
+    echo "❌ Error: WEBHOOK_URL environment variable is not set." >&2
+    exit 1
+fi
+
 response=$(curl -s "${API_URL}" )
 
 
