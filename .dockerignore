@@ -2,3 +2,4 @@
 *.log
 .github
 .env
+data.json
