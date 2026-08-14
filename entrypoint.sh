@@ -36,10 +36,22 @@ read -r total success failed <<< "$report"
 
 echo "Total Monitors: $total"
 echo "🚨 ALERT: $failed"
-echo "Sucess: $success"
+echo "✅  Success: $success"
 
-if [ -n "${WEBHOOK_URL:-}" ]; then
-    curl -s -X POST "${WEBHOOK_URL}" \
+if [ "$failed" -gt 0 ]; then
+  if [ -n "${WEBHOOK_URL:-}" ]; then
+    PAYLOAD=$(cat <<EOF
+{ "content": "🚨 ALERT: ${failed} check(s) failed out of ${total}.\n✅ Successful: ${success}.}
+EOF )
+
+    curl --fail-with-body \
+        --silent \
+        --show-error \
+        --max-time 15 \
+        --retry 3 \
+        --retry-delay 2 \
+        -X POST "${WEBHOOK_URL}" \
         -H 'Content-Type: application/json' \
-        -d "{\"content\":\"🚨 ALERT: ${failed} check(s) failed out of ${total}.\\n✅ Successful: ${success}.\"}"
+        -d "$PAYLOAD"
+  fi
 fi
