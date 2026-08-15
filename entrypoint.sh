@@ -41,7 +41,7 @@ echo "✅  Success: $success"
 if [ "$failed" -gt 0 ]; then
   if [ -n "${WEBHOOK_URL:-}" ]; then
 PAYLOAD=$(cat <<EOF
-{ "content": "🚨 ALERT: ${failed} check(s) failed out of ${total}.\n✅ Successful: ${success}.}
+{ "content": "🚨 ALERT: ${failed} check(s) failed out of ${total}.\n✅ Successful: ${success}."}
 EOF
 )
 
