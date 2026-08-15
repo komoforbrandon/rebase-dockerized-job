@@ -8,7 +8,6 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 COPY entrypoint.sh .
-COPY data.json .
 
 RUN chmod +x entrypoint.sh
 

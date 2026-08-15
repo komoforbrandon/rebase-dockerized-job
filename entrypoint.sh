@@ -12,7 +12,7 @@ if [ -z "${WEBHOOK_URL:-}" ]; then
     exit 1
 fi
 
-response=$(curl -s "${API_URL}" )
+response=$(curl -fsS --max-time 15 --retry 3  "${API_URL}" )
 
 
 echo "$response" | jq '.' > data.json
@@ -40,9 +40,10 @@ echo "✅  Success: $success"
 
 if [ "$failed" -gt 0 ]; then
   if [ -n "${WEBHOOK_URL:-}" ]; then
-    PAYLOAD=$(cat <<EOF
+PAYLOAD=$(cat <<EOF
 { "content": "🚨 ALERT: ${failed} check(s) failed out of ${total}.\n✅ Successful: ${success}.}
-EOF )
+EOF
+)
 
     curl --fail-with-body \
         --silent \
