@@ -4,3 +4,5 @@ services:
     container_name: automation-job
     env_file:
       - .env
+    volumes:
+      - .:/app

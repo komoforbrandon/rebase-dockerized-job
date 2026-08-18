@@ -17,9 +17,18 @@ response=$(curl -fsS --max-time 15 --retry 3  "${API_URL}" )
 
 echo "$response" | jq '.' > data.json
 
+jq -e '.checks[]' data.json > /dev/null || {
+    echo "❌ Error: 'checks'array missing or null in API response." >&2
+    exit 1
+}
 
 report=$(jq -r '.checks[] | "\(.id) \(.ok) \(.status_code)"' data.json |
 awk '
+BEGIN {
+    total=0
+    success=0
+    failed=0
+}
 {
     total++
 
