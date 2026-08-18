@@ -1,0 +1,8 @@
+services:
+  automation-job:
+    build: .
+    container_name: automation-job
+    env_file:
+      - .env
+    volumes:
+      - .:/app
